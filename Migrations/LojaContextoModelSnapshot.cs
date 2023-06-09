@@ -32,8 +32,12 @@ namespace AluraLoja.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double>("Preco")
+                    b.Property<double>("PrecoUnitario")
                         .HasColumnType("double");
+
+                    b.Property<string>("Unidade")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
