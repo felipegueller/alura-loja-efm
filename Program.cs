@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Data;
 
 namespace AluraLoja
 {
@@ -7,28 +8,29 @@ namespace AluraLoja
     {
         static void Main(string[] args)
         {
-            Produto paoFrances = new Produto()
-            {
-                Nome = "Pão Francês",
-                Unidade = "Unidade",
-                Categoria = "Padaria",
-                PrecoUnitario = 0.45
-            };
+            Promocao promocaoDePascoa = new(
+                "Promoção da Páscoa 2023",
+                DateTime.Now,
+                DateTime.Now.AddMonths(3));
 
-            Compra compra = new()
-            { 
-                Produto = paoFrances,
-                Quantidade = 4
-            };
-            compra.Preco = compra.Produto.PrecoUnitario * compra.Quantidade;
+            Produto p1 = new("Farinha", "Alimentos", 2.69, "Quilos");
+            Produto p2 = new("Feijão", "Alimentos", 10.28, "Quilos");
+            Produto p3 = new("Arroz", "Alimentos", 21.00, "Quilos");
 
-            Console.WriteLine($"R$ {compra.Preco:F2}");
+            promocaoDePascoa.AdicionarProduto(p1);
+            promocaoDePascoa.AdicionarProduto(p2);
+            promocaoDePascoa.AdicionarProduto(p3);
 
             using LojaContexto context = new();
 
-            context.Compras.Add(compra);
-            //context.SaveChanges();
+            //context.Add(promocaoDePascoa);
 
+            var promocao = context.Promocoes.Find(1);
+            
+            if (!(promocao == null))
+                context.Promocoes.Remove(promocao);
+
+            context.SaveChanges();
 
             ShowEntries(context.ChangeTracker.Entries());
 
@@ -38,6 +40,8 @@ namespace AluraLoja
 
         private static void ShowEntries(IEnumerable<EntityEntry> entries)
         {
+            if (!entries.Any()) return;
+
             Console.WriteLine("\n==============================\n");
 
             foreach (EntityEntry entry in entries)
