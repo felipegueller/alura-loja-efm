@@ -2,6 +2,7 @@
 using AluraLoja;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,36 +10,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AluraLoja.Migrations
 {
     [DbContext(typeof(LojaContexto))]
-    partial class LojaContextoModelSnapshot : ModelSnapshot
+    [Migration("20230609182653_rename-products-table")]
+    partial class renameproductstable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("AluraLoja.Compra", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<double>("Preco")
-                        .HasColumnType("double");
-
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.ToTable("Compras");
-                });
 
             modelBuilder.Entity("AluraLoja.Produto", b =>
                 {
@@ -64,17 +45,6 @@ namespace AluraLoja.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("AluraLoja.Compra", b =>
-                {
-                    b.HasOne("AluraLoja.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
                 });
 #pragma warning restore 612, 618
         }

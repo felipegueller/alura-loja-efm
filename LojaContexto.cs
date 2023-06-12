@@ -6,7 +6,8 @@ namespace AluraLoja
     {
         static readonly string stringDeConexao = "Server=localhost; User ID=root; Password=root; Database=alura_store";
         
-        public DbSet<Produto> Produto { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Compra> Compras { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -29,7 +29,7 @@ namespace AluraLoja
 
         public IList<Produto> Produtos()
         {
-            return contexto.Produto.ToList();
+            return contexto.Produtos.ToList();
         }
 
         public void Remover(Produto produto)
