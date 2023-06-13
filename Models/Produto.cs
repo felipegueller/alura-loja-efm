@@ -17,6 +17,7 @@ namespace AluraLoja
         public string Unidade { get; internal set; }
 
         public IList<PromocaoProduto> Promocoes { get; internal set; }
+        public IList<Compra> Compras { get; internal set; }
 
         public Produto() { }
 
